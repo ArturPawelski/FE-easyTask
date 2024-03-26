@@ -1,16 +1,12 @@
-import Auth from "./Pages/Auth/Auth"
-
-
+import Auth from './Pages/Auth/Auth';
 
 function App() {
-
   return (
-      <div>
-        {/* <p>{import.meta.env.VITE_TEST}</p> */}
-        <Auth/>
-        
-      </div>
-  )
+    <div>
+      {/* <p>{import.meta.env.VITE_TEST}</p> */}
+      <Auth />
+    </div>
+  );
 }
 
-export default App
+export default App;

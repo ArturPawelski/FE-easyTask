@@ -1,25 +1,9 @@
-import {
-  Box,
-  Flex,
-  Container,
-  Image,
-  Text,
-  Center,
-  Heading,
-  VStack,
-  Input,
-  Button,
-  FormLabel,
-  FormControl,
-  FormErrorMessage,
-  InputGroup,
-  InputRightElement,
-} from '@chakra-ui/react';
+import { Flex, Container, Text, Heading, VStack, Input, Button, FormLabel, FormControl, FormErrorMessage, InputGroup, InputRightElement } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-const Login: React.FC = () => {
+const Login: React.FC<LoginPropsI> = ({ setAuthMode }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const {
     register,
@@ -47,11 +31,7 @@ const Login: React.FC = () => {
             <FormLabel fontWeight='bold' htmlFor='email'>
               Email
             </FormLabel>
-            <Input
-              id='email'
-              placeholder='Enter your email'
-              {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+\.\S+$/, message: 'Invalid email address' } })}
-            />
+            <Input id='email' placeholder='Enter your email' {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+\.\S+$/, message: 'Invalid email address' } })} />
             <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
           </FormControl>
 
@@ -61,12 +41,7 @@ const Login: React.FC = () => {
             </FormLabel>
 
             <InputGroup>
-              <Input
-                id='password'
-                type={showPassword ? 'text' : 'password'}
-                placeholder='Enter your password'
-                {...register('password', { required: 'Password is required' })}
-              />
+              <Input id='password' type={showPassword ? 'text' : 'password'} placeholder='Enter your password' {...register('password', { required: 'Password is required' })} />
               <InputRightElement width='4.5rem'>
                 <Button h='1.75rem' size='sm' onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
@@ -90,6 +65,15 @@ const Login: React.FC = () => {
           >
             Sign In
           </Button>
+
+          <Flex justifyContent='space-between' w={['100%', '90%', '80%']}>
+            <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+              Forgot Password?
+            </Text>
+            <Text onClick={() => setAuthMode('register')} cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+              Sign Up
+            </Text>
+          </Flex>
         </VStack>
       </form>
     </Container>
