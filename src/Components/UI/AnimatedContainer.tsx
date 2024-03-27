@@ -11,12 +11,13 @@ interface MotionContainerProps extends ContainerProps {
   variants?: typeof defaultVariants;
   initial?: string;
   animate?: string;
+  shouldAnimate?: boolean;
 }
 
-export const MotionContainer: React.FC<MotionContainerProps> = ({ children, variants = defaultVariants, initial = 'hidden', animate = 'visible', ...props }) => {
+export const MotionContainer: React.FC<MotionContainerProps> = ({ children, variants = defaultVariants, initial = 'hidden', animate = 'visible', shouldAnimate = true, ...props }) => {
   const MotionContainerComponent = motion(Container);
   return (
-    <MotionContainerComponent variants={variants} initial={initial} animate={animate} {...props}>
+    <MotionContainerComponent variants={variants} initial={shouldAnimate ? initial : undefined} animate={shouldAnimate ? animate : undefined} {...props}>
       {children}
     </MotionContainerComponent>
   );

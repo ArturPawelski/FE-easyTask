@@ -10,9 +10,3 @@ interface SignUpInterface {
   password: string;
   confirmPassword: string;
 }
-
-interface LoginPropsI {
-  setAuthMode: (mode: 'login' | 'register') => void;
-}
-
-interface RegisterPropsI extends LoginPropsI {}
