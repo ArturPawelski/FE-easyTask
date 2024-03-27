@@ -74,7 +74,7 @@ const Login: React.FC = () => {
                 <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
                   Forgot Password?
                 </Text>
-                <Link to='/register'>
+                <Link to='/auth/register'>
                   <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
                     Sign Up
                   </Text>

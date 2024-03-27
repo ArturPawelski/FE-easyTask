@@ -113,7 +113,7 @@ const Register: React.FC = () => {
                 <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
                   Forgot Password?
                 </Text>
-                <Link to='/login'>
+                <Link to='/auth/login'>
                   <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
                     Sign In
                   </Text>

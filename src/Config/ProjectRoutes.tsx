@@ -1,45 +1,57 @@
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
-import { Home } from '../Pages/Home/Home';
-import Login from '../Pages/Auth/Login';
-import Register from '../Pages/Auth/Register';
+
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Home = lazy(() => import('../Pages/Home/Home'));
+const Login = lazy(() => import('../Pages/Auth/Login'));
+const Register = lazy(() => import('../Pages/Auth/Register'));
 
 const ProjectRoutes: React.FC = () => {
   return (
-    <div>
+    <Suspense fallback={<div>Loading...</div>}>
       <BrowserRouter>
-        <Navbar />
         <Routes>
-          <Route path='/' element={<Home />} />
-
-          {/* <Route path='/meal/:mealName/:mealId' element={<NestedMeal />} />  */}
-
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-
-          {/* <Route
-            path='/cart'
+          <Route
+            path='/'
             element={
-              <ProtectedRoute>
-                <Cart />
-              </ProtectedRoute>
+              <LayoutWithNavbar>
+                <Home />
+              </LayoutWithNavbar>
             }
           />
-
           <Route
-            path='/myaccount'
+            path='/auth/login'
             element={
-              <ProtectedRoute>
-                <MyProfile />
-              </ProtectedRoute>
+              <BasicLayout>
+                <Login />
+              </BasicLayout>
             }
-          /> */}
-
+          />
+          <Route
+            path='/auth/register'
+            element={
+              <BasicLayout>
+                <Register />
+              </BasicLayout>
+            }
+          />
           <Route path='*' element={<p>404</p>} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </Suspense>
   );
 };
-
 export default ProjectRoutes;
+
+const LayoutWithNavbar: React.FC<LayoutProps> = ({ children }) => (
+  <>
+    <Navbar />
+    {children}
+  </>
+);
+
+const BasicLayout: React.FC<LayoutProps> = ({ children }) => <>{children}</>;
