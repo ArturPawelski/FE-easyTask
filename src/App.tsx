@@ -1,9 +1,8 @@
-import ProjectRoutes from './Config/ProjectRoutes';
+import ProjectRoutes from './Routes/ProjectRoutes';
 
 function App() {
   return (
     <div>
-      {/* <p>{import.meta.env.VITE_TEST}</p> */}
       <ProjectRoutes />
     </div>
   );
