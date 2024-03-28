@@ -1,22 +1,45 @@
-import { Flex, Text, Heading, VStack, Input, Button, FormLabel, FormControl, FormErrorMessage, InputGroup, InputRightElement, Container, Box, Center } from '@chakra-ui/react';
+import { Flex, Text, Heading, VStack, Input, Button, FormLabel, FormControl, FormErrorMessage, InputGroup, InputRightElement, Container, Box, Center, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 import { Link } from 'react-router-dom';
+import { useRegister } from '../../Hooks/Auth/useRegister';
 
 const Register: React.FC = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const toast = useToast();
 
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<SignUpInterface>();
+  const { mutate: registerUser, isLoading, error } = useRegister();
 
-  const onSubmit: SubmitHandler<SignUpInterface> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<SignUpInterface> = (userData) => {
+    registerUser(userData, {
+      onSuccess: (data) => {
+        toast({
+          title: 'Success',
+          description: 'You have successfully registered.',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+      },
+      onError: (error: any) => {
+        const errorMessage = error.response?.data?.message || 'An error occurred during registration.';
+        toast({
+          title: 'Error',
+          description: errorMessage,
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
+      },
+    });
   };
 
   return (

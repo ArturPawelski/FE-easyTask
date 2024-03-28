@@ -10,3 +10,19 @@ interface SignUpInterface {
   password: string;
   confirmPassword: string;
 }
+
+interface SuccessResponse {
+  success: true;
+  data: {
+    name: string;
+  };
+  message: string;
+}
+
+interface ErrorResponse {
+  success: false;
+  data: null;
+  message: string;
+}
+
+type ApiResponse = SuccessResponse | ErrorResponse;
