@@ -1,5 +1,4 @@
 import ProjectRoutes from './Config/ProjectRoutes';
-import Auth from './Pages/Auth/Auth';
 
 function App() {
   return (

@@ -2,7 +2,7 @@ import { Flex, Container, Text, Heading, VStack, Input, Button, FormLabel, FormC
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { MotionContainer } from '../../Components/UI/AnimatedContainer';
+
 import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {

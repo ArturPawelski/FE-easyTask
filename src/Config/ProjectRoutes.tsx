@@ -1,6 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
+import LoadingPage from '../Components/LoadingPage';
+import NotFoundPage from '../Components/NotFoundPage';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,7 +14,7 @@ const Register = lazy(() => import('../Pages/Auth/Register'));
 
 const ProjectRoutes: React.FC = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingPage />}>
       <BrowserRouter>
         <Routes>
           <Route
@@ -39,7 +41,7 @@ const ProjectRoutes: React.FC = () => {
               </BasicLayout>
             }
           />
-          <Route path='*' element={<p>404</p>} />
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </Suspense>

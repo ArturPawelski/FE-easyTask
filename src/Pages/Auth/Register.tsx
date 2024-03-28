@@ -2,7 +2,7 @@ import { Flex, Text, Heading, VStack, Input, Button, FormLabel, FormControl, For
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { MotionContainer } from '../../Components/UI/AnimatedContainer';
+
 import { Link } from 'react-router-dom';
 
 const Register: React.FC = () => {
