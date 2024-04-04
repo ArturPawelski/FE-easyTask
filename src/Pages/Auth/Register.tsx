@@ -1,7 +1,7 @@
-import { Flex, Text, Heading, VStack, Input, Button, FormLabel, FormControl, FormErrorMessage, InputGroup, InputRightElement, Container, Box, Center } from '@chakra-ui/react';
+import { Flex, Text, Heading, VStack, Input, Button, FormLabel, FormControl, FormErrorMessage, InputGroup, InputRightElement, Container, Box, Center, HStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineCheckCircle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useRegister } from '../../Hooks/Auth/useRegister';
 import { useToastNotifications } from '../../Components/UI/ToastMessage';
@@ -14,14 +14,17 @@ const Register: React.FC = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<SignUpInterface>();
-  const { mutate: registerUser, isLoading, error } = useRegister();
+
+  const { mutate: registerUser, isLoading, isSuccess } = useRegister();
 
   const onSubmit: SubmitHandler<SignUpInterface> = (userData) => {
     registerUser(userData, {
       onSuccess: (data) => {
         successToast(data.message);
+        reset();
       },
       onError: (error: any) => {
         const errorMessage = error.response?.data?.message || 'An error occurred during registration.';
@@ -29,6 +32,31 @@ const Register: React.FC = () => {
       },
     });
   };
+
+  if (isSuccess) {
+    return (
+      <Box w='100%' h='100vh' p={4} color='black' bgGradient='linear(to-br, black, purple.800)'>
+        <Center h='100%'>
+          <VStack spacing={5} p={5} bg='white' borderRadius='lg' boxShadow='lg' w={['90%', '70%', '60%', '30%']}>
+            <HStack spacing={2} justify='center'>
+              <Heading textAlign='center' color='purple.800'>
+                Registration Successful!
+              </Heading>
+              <AiOutlineCheckCircle size='50px' color='green' />
+            </HStack>
+            <Text fontSize='md' textAlign='center'>
+              We've sent an email to the address you provided. Please check your inbox and click on the link to verify your account.
+            </Text>
+            <Link to='/auth/login'>
+              <Button colorScheme='purple' variant='solid'>
+                Go to Login
+              </Button>
+            </Link>
+          </VStack>
+        </Center>
+      </Box>
+    );
+  }
 
   return (
     <LoadingOverlay isLoading={isLoading}>

@@ -11,6 +11,7 @@ interface LayoutProps {
 const Home = lazy(() => import('../Pages/Home/Home'));
 const Login = lazy(() => import('../Pages/Auth/Login'));
 const Register = lazy(() => import('../Pages/Auth/Register'));
+const VerifyAccount = lazy(() => import('../Pages/Auth/VerifyAccount'));
 
 const ProjectRoutes: React.FC = () => {
   return (
@@ -41,6 +42,15 @@ const ProjectRoutes: React.FC = () => {
               </BasicLayout>
             }
           />
+          <Route
+            path='/auth/verify'
+            element={
+              <BasicLayout>
+                <VerifyAccount />
+              </BasicLayout>
+            }
+          />
+
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
