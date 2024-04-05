@@ -10,6 +10,7 @@ import LoadingOverlay from '../../Components/UI/LoadingOverlay';
 const Register: React.FC = () => {
   const { successToast, errorToast } = useToastNotifications();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const { mutate: registerUser, isLoading, isSuccess } = useRegister();
   const {
     register,
     handleSubmit,
@@ -17,8 +18,6 @@ const Register: React.FC = () => {
     reset,
     formState: { errors },
   } = useForm<SignUpInterface>();
-
-  const { mutate: registerUser, isLoading, isSuccess } = useRegister();
 
   const onSubmit: SubmitHandler<SignUpInterface> = (userData) => {
     registerUser(userData, {

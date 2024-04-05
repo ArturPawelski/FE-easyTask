@@ -11,12 +11,10 @@ interface SignUpInterface {
   confirmPassword: string;
 }
 
-interface SuccessResponse {
-  success: true;
-  data: {
-    name: string;
-  };
-  message: string;
+//types for API
+interface VerifyDataInterface {
+  code: string;
+  token: string;
 }
 
 interface ErrorResponse {
@@ -25,4 +23,20 @@ interface ErrorResponse {
   message: string;
 }
 
-type ApiResponse = SuccessResponse | ErrorResponse;
+interface RegisterSuccessResponse {
+  success: true;
+  data: {
+    name: string;
+  };
+  message: string;
+}
+
+interface VerifySuccessResponse {
+  success: true;
+  data: null;
+  message: string;
+}
+
+type ApiResponseRegister = RegisterSuccessResponse | ErrorResponse;
+
+type ApiResponseVerify = VerifySuccessResponse | ErrorResponse;
