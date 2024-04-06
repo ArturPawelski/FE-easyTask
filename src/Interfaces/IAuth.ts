@@ -11,6 +11,11 @@ interface SignUpInterface {
   confirmPassword: string;
 }
 
+interface ResendVerificationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 //types for API
 interface VerifyDataInterface {
   code: string;
@@ -40,3 +45,5 @@ interface VerifySuccessResponse {
 type ApiResponseRegister = RegisterSuccessResponse | ErrorResponse;
 
 type ApiResponseVerify = VerifySuccessResponse | ErrorResponse;
+
+type ApiResponseResendVerification = VerifySuccessResponse | ErrorResponse;

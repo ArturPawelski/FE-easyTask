@@ -18,4 +18,13 @@ export const AuthApi = {
       throw error;
     }
   },
+
+  resendVerification: async (email: string): Promise<ApiResponseResendVerification> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/resend-verification`, { email });
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
 };

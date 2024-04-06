@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useVerifyAccount } from '../../Hooks/Auth/useVerifyAccount';
 import { useToastNotifications } from '../../Components/UI/ToastMessage';
-import ResendVerificationModal from './Components/ResendVerificationModal';
+import ResendVerificationModal from '../../Components/Auth/ResendVerificationModal';
 
 const VerifyAccount: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
