@@ -1,6 +1,6 @@
 import { useToast } from '@chakra-ui/react';
 
-export const useToastNotifications = () => {
+export const useToastNotifications = (): UseToastNotificationsReturn => {
   const toast = useToast();
 
   const successToast = (description: string, title: string = 'Success') => {
