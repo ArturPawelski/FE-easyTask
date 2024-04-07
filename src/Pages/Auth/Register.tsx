@@ -147,7 +147,7 @@ const Register: React.FC = () => {
                     transitionTimingFunction: 'ease-in-out',
                   }}
                 >
-                  Sign In
+                  Sign Up
                 </Button>
 
                 <Flex justifyContent='space-between' w={['100%', '90%', '80%']}>

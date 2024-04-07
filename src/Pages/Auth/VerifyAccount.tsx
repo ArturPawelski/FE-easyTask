@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Flex, Text, VStack, Input, Button, FormControl, FormErrorMessage, Container, Box, Center } from '@chakra-ui/react';
+import { Flex, Text, VStack, Input, Button, FormControl, FormErrorMessage, Container, Box, Center, HStack } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useVerifyAccount } from '../../Hooks/Auth/useVerifyAccount';
 import { useToastNotifications } from '../../Components/UI/ToastMessage';
 import ResendVerificationModal from '../../Components/Auth/ResendVerificationModal';
@@ -79,9 +79,16 @@ const VerifyAccount: React.FC = () => {
               </Button>
             </Flex>
           </form>
-          <Text onClick={() => setModalOpen(true)} mt={4} cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
-            Resend verification email
-          </Text>
+          <Flex mt={4} justifyContent='space-between'>
+            <Text onClick={() => setModalOpen(true)} cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+              Resend verification email
+            </Text>
+            <Link to='/auth/login'>
+              <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+                Sign In
+              </Text>
+            </Link>
+          </Flex>
         </Container>
       </Center>
       <ResendVerificationModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />

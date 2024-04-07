@@ -1,8 +1,12 @@
 import React from 'react';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, Input, FormErrorMessage, Text, Box } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useResendVerification } from '../../Hooks/Auth/useResendVerification';
+import { useToastNotifications } from '../UI/ToastMessage';
 
 const ResendVerificationModal: React.FC<ResendVerificationModalProps> = ({ isOpen, onClose }) => {
+  const { successToast, errorToast } = useToastNotifications();
+  const { mutate: resendVerification, isLoading } = useResendVerification();
   const {
     register,
     handleSubmit,
@@ -10,7 +14,16 @@ const ResendVerificationModal: React.FC<ResendVerificationModalProps> = ({ isOpe
   } = useForm<{ email: string }>();
 
   const onSubmit: SubmitHandler<{ email: string }> = ({ email }) => {
-    onClose();
+    resendVerification(email, {
+      onSuccess: (data) => {
+        successToast(data.message);
+        onClose();
+      },
+      onError: (error: any) => {
+        const errorMessage = error.response?.data?.message || 'An error occurred';
+        errorToast(errorMessage);
+      },
+    });
   };
 
   return (
@@ -18,7 +31,7 @@ const ResendVerificationModal: React.FC<ResendVerificationModalProps> = ({ isOpe
       <ModalOverlay />
       <ModalContent mx={4}>
         <ModalHeader>Resend Verification Email</ModalHeader>
-        <ModalCloseButton />
+        <ModalCloseButton isDisabled={isLoading} />
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody>
@@ -27,6 +40,7 @@ const ResendVerificationModal: React.FC<ResendVerificationModalProps> = ({ isOpe
             </Box>
             <FormControl isInvalid={!!errors.email}>
               <Input
+                disabled={isLoading}
                 id='email'
                 {...register('email', {
                   required: 'This field is required',
@@ -41,10 +55,10 @@ const ResendVerificationModal: React.FC<ResendVerificationModalProps> = ({ isOpe
           </ModalBody>
 
           <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+            <Button isDisabled={isLoading} isLoading={isLoading} mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme='purple' type='submit'>
+            <Button isDisabled={isLoading} isLoading={isLoading} colorScheme='purple' type='submit'>
               OK
             </Button>
           </ModalFooter>
