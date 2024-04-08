@@ -16,12 +16,10 @@ interface ResendVerificationModalProps {
   onClose: () => void;
 }
 
-//types for API
 interface VerifyDataInterface {
   code: string;
   token: string;
 }
-
 interface ErrorResponse {
   success: false;
   data: null;
@@ -42,8 +40,16 @@ interface VerifySuccessResponse {
   message: string;
 }
 
+interface LoginSuccessResponse {
+  success: true;
+  data: null;
+  message: string;
+}
+
 type ApiResponseRegister = RegisterSuccessResponse | ErrorResponse;
 
 type ApiResponseVerify = VerifySuccessResponse | ErrorResponse;
 
 type ApiResponseResendVerification = VerifySuccessResponse | ErrorResponse;
+
+type ApiResponseLogin = LoginSuccessResponse | ErrorResponse;

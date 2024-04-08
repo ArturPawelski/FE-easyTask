@@ -10,6 +10,15 @@ export const AuthApi = {
     }
   },
 
+  login: async (loginData: SignInInterface): Promise<ApiResponseLogin> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/login`, loginData);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+
   verifyAccount: async (verifyData: VerifyDataInterface): Promise<ApiResponseVerify> => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/verify?token=${verifyData.token}`, { code: verifyData.code });

@@ -41,6 +41,7 @@ const ResendVerificationModal: React.FC<ResendVerificationModalProps> = ({ isOpe
             <FormControl isInvalid={!!errors.email}>
               <Input
                 disabled={isLoading}
+                placeholder='Email'
                 id='email'
                 {...register('email', {
                   required: 'This field is required',
