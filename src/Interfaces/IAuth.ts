@@ -20,36 +20,36 @@ interface VerifyDataInterface {
   code: string;
   token: string;
 }
+
+interface User {
+  name: string;
+  email: string;
+  id: string;
+}
+
 interface ErrorResponse {
   success: false;
   data: null;
   message: string;
 }
-
-interface RegisterSuccessResponse {
-  success: true;
-  data: {
-    name: string;
-  };
-  message: string;
-}
-
-interface VerifySuccessResponse {
+interface SuccessResponse {
   success: true;
   data: null;
   message: string;
 }
 
-interface LoginSuccessResponse {
+interface CheckSessionSuccessResponse {
   success: true;
-  data: null;
+  data: User;
   message: string;
 }
 
-type ApiResponseRegister = RegisterSuccessResponse | ErrorResponse;
+type ApiResponseRegister = SuccessResponse | ErrorResponse;
 
-type ApiResponseVerify = VerifySuccessResponse | ErrorResponse;
+type ApiResponseVerify = SuccessResponse | ErrorResponse;
 
-type ApiResponseResendVerification = VerifySuccessResponse | ErrorResponse;
+type ApiResponseResendVerification = SuccessResponse | ErrorResponse;
 
-type ApiResponseLogin = LoginSuccessResponse | ErrorResponse;
+type ApiResponseLogin = SuccessResponse | ErrorResponse;
+
+type ApiResponseCheckSession = CheckSessionSuccessResponse | ErrorResponse;

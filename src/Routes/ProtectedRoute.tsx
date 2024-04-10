@@ -1,20 +1,18 @@
-// import { Navigate } from 'react-router-dom';
-// import { AuthServices } from '../Services/AuthServices';
-// import { useGetUserInfo } from '../Hooks/useGetUserInfo';
+import React from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useCheckSession } from '../Hooks/Auth/useCheckSession';
+import LoadingPage from '../Components/LoadingPage';
 
-// interface ProtectedRouteProps {
-//   children: React.ReactNode;
-// }
+const ProtectedRoute: React.FC = () => {
+  const { data, isLoading, isError } = useCheckSession();
 
-// const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  
-//   const Token: string | null = AuthServices.getTokenFromLocalStorage();
-//   const UserData: UserDataResponseInterface | null = useGetUserInfo();
+  console.log(data);
+  if (isLoading) return <LoadingPage />;
 
-//   if (!Token || !UserData) {
-//     return <Navigate to='/login' />;
-//   }
-//   return children;
-// };
+  if (isError) {
+    return <Navigate to='/auth/login' replace />;
+  }
 
-// export default ProtectedRoute;
+  return <Outlet />;
+};
+export default ProtectedRoute;

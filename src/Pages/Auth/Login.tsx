@@ -27,7 +27,7 @@ const Login: React.FC = () => {
         reset();
       },
       onError: (error: any) => {
-        const errorMessage = error.response?.data?.message || 'An error occurred during registration.';
+        const errorMessage = error.response?.data?.message || 'An error occurred during login.';
         errorToast(errorMessage);
       },
     });

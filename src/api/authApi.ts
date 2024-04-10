@@ -1,4 +1,5 @@
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 export const AuthApi = {
   register: async (userData: SignUpInterface): Promise<ApiResponseRegister> => {
@@ -13,6 +14,15 @@ export const AuthApi = {
   login: async (loginData: SignInInterface): Promise<ApiResponseLogin> => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/login`, loginData);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+
+  checkSession: async (): Promise<ApiResponseCheckSession> => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/users/check-session`);
       return response.data;
     } catch (error: any) {
       throw error;

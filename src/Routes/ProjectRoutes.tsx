@@ -8,6 +8,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
+const ProtectedRoute = lazy(() => import('./ProtectedRoute'));
 const Home = lazy(() => import('../Pages/Home/Home'));
 const Login = lazy(() => import('../Pages/Auth/Login'));
 const Register = lazy(() => import('../Pages/Auth/Register'));
@@ -18,14 +19,17 @@ const ProjectRoutes: React.FC = () => {
     <Suspense fallback={<LoadingPage />}>
       <BrowserRouter>
         <Routes>
-          <Route
-            path='/'
-            element={
-              <LayoutWithNavbar>
-                <Home />
-              </LayoutWithNavbar>
-            }
-          />
+          <Route element={<ProtectedRoute />}>
+            <Route
+              path='/'
+              element={
+                <LayoutWithNavbar>
+                  <Home />
+                </LayoutWithNavbar>
+              }
+            />
+          </Route>
+
           <Route
             path='/auth/login'
             element={
