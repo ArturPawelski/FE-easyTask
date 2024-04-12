@@ -6,7 +6,6 @@ const Home = () => {
 
   return (
     <div>
-      <p>XDD</p>
       <button onClick={() => setIsVisible(!isVisible)}>Toggle Visibility</button>
       <AnimatedPresenceContainer isVisible={isVisible}>
         <div style={{ padding: '20px', background: 'salmon', margin: '20px 0' }}>Animated</div>

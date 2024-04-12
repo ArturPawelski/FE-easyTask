@@ -3,10 +3,15 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLogin } from '../../Hooks/Auth/useLogin';
+import { useToastNotifications } from '../../Components/UI/ToastMessage';
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+  const { successToast, errorToast } = useToastNotifications();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const { mutate: loginUser, isLoading, isSuccess, isError } = useLogin();
   const {
     register,
     handleSubmit,
@@ -14,8 +19,18 @@ const Login: React.FC = () => {
     reset,
   } = useForm<SignInInterface>();
 
-  const onSubmit: SubmitHandler<SignInInterface> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<SignInInterface> = (loginData) => {
+    loginUser(loginData, {
+      onSuccess: (data) => {
+        successToast(data.message);
+        navigate('/');
+        reset();
+      },
+      onError: (error: any) => {
+        const errorMessage = error.response?.data?.message || 'An error occurred during login.';
+        errorToast(errorMessage);
+      },
+    });
   };
 
   return (

@@ -10,3 +10,46 @@ interface SignUpInterface {
   password: string;
   confirmPassword: string;
 }
+
+interface ResendVerificationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+interface VerifyDataInterface {
+  code: string;
+  token: string;
+}
+
+interface User {
+  name: string;
+  email: string;
+  id: string;
+}
+
+interface ErrorResponse {
+  success: false;
+  data: null;
+  message: string;
+}
+interface SuccessResponse {
+  success: true;
+  data: null;
+  message: string;
+}
+
+interface CheckSessionSuccessResponse {
+  success: true;
+  data: User;
+  message: string;
+}
+
+type ApiResponseRegister = SuccessResponse | ErrorResponse;
+
+type ApiResponseVerify = SuccessResponse | ErrorResponse;
+
+type ApiResponseResendVerification = SuccessResponse | ErrorResponse;
+
+type ApiResponseLogin = SuccessResponse | ErrorResponse;
+
+type ApiResponseCheckSession = CheckSessionSuccessResponse | ErrorResponse;
