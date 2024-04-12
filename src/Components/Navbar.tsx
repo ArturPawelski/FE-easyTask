@@ -1,4 +1,4 @@
-import { Center, Container, Flex } from '@chakra-ui/react';
+import { Container, Flex } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
@@ -8,7 +8,6 @@ const Navbar: React.FC = () => {
         <nav>
           <Flex gap={4} justify='center' align='center'>
             <Link to='/'>Home</Link>
-            <Link to='/myaccount'>moje konto</Link>
             <Link to='/auth/login'>login</Link>
           </Flex>
         </nav>

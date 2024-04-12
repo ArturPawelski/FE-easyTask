@@ -8,6 +8,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
+const GuestRoute = lazy(() => import('./GuestRoute'));
 const ProtectedRoute = lazy(() => import('./ProtectedRoute'));
 const Home = lazy(() => import('../Pages/Home/Home'));
 const Login = lazy(() => import('../Pages/Auth/Login'));
@@ -30,30 +31,32 @@ const ProjectRoutes: React.FC = () => {
             />
           </Route>
 
-          <Route
-            path='/auth/login'
-            element={
-              <BasicLayout>
-                <Login />
-              </BasicLayout>
-            }
-          />
-          <Route
-            path='/auth/register'
-            element={
-              <BasicLayout>
-                <Register />
-              </BasicLayout>
-            }
-          />
-          <Route
-            path='/auth/verify'
-            element={
-              <BasicLayout>
-                <VerifyAccount />
-              </BasicLayout>
-            }
-          />
+          <Route element={<GuestRoute />}>
+            <Route
+              path='/auth/login'
+              element={
+                <BasicLayout>
+                  <Login />
+                </BasicLayout>
+              }
+            />
+            <Route
+              path='/auth/register'
+              element={
+                <BasicLayout>
+                  <Register />
+                </BasicLayout>
+              }
+            />
+            <Route
+              path='/auth/verify'
+              element={
+                <BasicLayout>
+                  <VerifyAccount />
+                </BasicLayout>
+              }
+            />
+          </Route>
 
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
