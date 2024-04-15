@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
-import LoadingPage from '../Components/LoadingPage';
+import LoadingPage from '../Components/UI/LoadingPage';
 import NotFoundPage from '../Components/NotFoundPage';
 
 interface LayoutProps {

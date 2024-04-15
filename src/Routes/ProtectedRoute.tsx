@@ -1,12 +1,11 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useCheckSession } from '../Hooks/Auth/useCheckSession';
-import LoadingPage from '../Components/LoadingPage';
+import LoadingPage from '../Components/UI/LoadingPage';
 
 const ProtectedRoute: React.FC = () => {
-  const { data, isLoading, isError } = useCheckSession();
+  const { isLoading, isError } = useCheckSession();
 
-  console.log(data);
   if (isLoading) return <LoadingPage />;
 
   if (isError) {

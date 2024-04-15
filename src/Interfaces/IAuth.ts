@@ -44,12 +44,6 @@ interface CheckSessionSuccessResponse {
   message: string;
 }
 
-type ApiResponseRegister = SuccessResponse | ErrorResponse;
-
-type ApiResponseVerify = SuccessResponse | ErrorResponse;
-
-type ApiResponseResendVerification = SuccessResponse | ErrorResponse;
-
-type ApiResponseLogin = SuccessResponse | ErrorResponse;
+type ApiResponse = SuccessResponse | ErrorResponse;
 
 type ApiResponseCheckSession = CheckSessionSuccessResponse | ErrorResponse;

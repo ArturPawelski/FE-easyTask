@@ -2,7 +2,6 @@ import { Flex, Container, Text, Heading, VStack, Input, Button, FormLabel, FormC
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useLogin } from '../../Hooks/Auth/useLogin';
 import { useToastNotifications } from '../../Components/UI/ToastMessage';
@@ -11,7 +10,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const { successToast, errorToast } = useToastNotifications();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const { mutate: loginUser, isLoading, isSuccess, isError } = useLogin();
+  const { mutate: loginUser, isLoading } = useLogin();
   const {
     register,
     handleSubmit,
@@ -71,6 +70,7 @@ const Login: React.FC = () => {
               </FormControl>
 
               <Button
+                isLoading={isLoading}
                 type='submit'
                 colorScheme='blue'
                 px={10}
