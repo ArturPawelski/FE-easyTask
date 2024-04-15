@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { AuthApi } from '../../api/authApi';
+import { AuthApi } from '../../API/authApi';
 import { useNavigate } from 'react-router-dom';
-import { useUserStore } from '../../store/useUserStore';
+import { useUserStore } from '../../Store/useUserStore';
 import { useToastNotifications } from '../../Components/UI/ToastMessage';
 
 export const useLogout = () => {

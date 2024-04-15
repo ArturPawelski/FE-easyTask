@@ -1,5 +1,5 @@
 import { useMutation } from 'react-query';
-import { AuthApi } from '../../api/authApi';
+import { AuthApi } from '../../API/authApi';
 
 export const useLogin = () => {
   return useMutation((loginData: SignInInterface) => AuthApi.login(loginData));

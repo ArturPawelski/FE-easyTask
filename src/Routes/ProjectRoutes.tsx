@@ -4,10 +4,6 @@ import Navbar from '../Components/Navbar';
 import LoadingPage from '../Components/UI/LoadingPage';
 import NotFoundPage from '../Components/NotFoundPage';
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
 const GuestRoute = lazy(() => import('./GuestRoute'));
 const ProtectedRoute = lazy(() => import('./ProtectedRoute'));
 const Home = lazy(() => import('../Pages/Home/Home'));
