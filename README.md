@@ -12,6 +12,7 @@ The Frontend EasyTask repository holds the frontend segment of the EasyTask appl
 - **React Hook Form**
 - **React Query**
 - **Axios**
+- **Zustand**
 
 ## Backend
 
