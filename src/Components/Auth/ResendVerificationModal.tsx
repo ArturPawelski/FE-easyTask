@@ -3,8 +3,10 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody,
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useResendVerification } from '../../Hooks/Auth/useResendVerification';
 import { useToastNotifications } from '../UI/ToastMessage';
+import { useResendVerificationModalStore } from '../../Store/Auth/useResendVerificationModalStore';
 
-const ResendVerificationModal: React.FC<ResendVerificationModalProps> = ({ isOpen, onClose }) => {
+const ResendVerificationModal: React.FC = () => {
+  const { isModalOpen, closeModal } = useResendVerificationModalStore();
   const { successToast, errorToast } = useToastNotifications();
   const { mutate: resendVerification, isLoading } = useResendVerification();
   const {
@@ -17,7 +19,7 @@ const ResendVerificationModal: React.FC<ResendVerificationModalProps> = ({ isOpe
     resendVerification(email, {
       onSuccess: (data) => {
         successToast(data.message);
-        onClose();
+        closeModal;
       },
       onError: (error: any) => {
         const errorMessage = error.response?.data?.message || 'An error occurred';
@@ -27,7 +29,7 @@ const ResendVerificationModal: React.FC<ResendVerificationModalProps> = ({ isOpe
   };
 
   return (
-    <Modal size={['sm', 'xl']} isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal size={['sm', 'xl']} isOpen={isModalOpen} onClose={closeModal} isCentered>
       <ModalOverlay />
       <ModalContent mx={4}>
         <ModalHeader>Resend Verification Email</ModalHeader>
@@ -56,7 +58,7 @@ const ResendVerificationModal: React.FC<ResendVerificationModalProps> = ({ isOpe
           </ModalBody>
 
           <ModalFooter>
-            <Button isDisabled={isLoading} isLoading={isLoading} mr={3} onClick={onClose}>
+            <Button isDisabled={isLoading} isLoading={isLoading} mr={3} onClick={closeModal}>
               Cancel
             </Button>
             <Button isDisabled={isLoading} isLoading={isLoading} colorScheme='purple' type='submit'>

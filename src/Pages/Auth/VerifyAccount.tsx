@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { Flex, Text, VStack, Input, Button, FormControl, FormErrorMessage, Container, Box, Center, HStack } from '@chakra-ui/react';
+import React from 'react';
+import { Flex, Text, VStack, Input, Button, FormControl, FormErrorMessage, Container, Box, Center } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useVerifyAccount } from '../../Hooks/Auth/useVerifyAccount';
 import { useToastNotifications } from '../../Components/UI/ToastMessage';
 import ResendVerificationModal from '../../Components/Auth/ResendVerificationModal';
+import { useResendVerificationModalStore } from '../../Store/Auth/useResendVerificationModalStore';
 
 const VerifyAccount: React.FC = () => {
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const { openModal } = useResendVerificationModalStore();
   const { successToast, errorToast } = useToastNotifications();
   const navigate = useNavigate();
   const location = useLocation();
@@ -80,7 +81,7 @@ const VerifyAccount: React.FC = () => {
             </Flex>
           </form>
           <Flex mt={4} justifyContent='space-between'>
-            <Text onClick={() => setModalOpen(true)} cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+            <Text onClick={openModal} cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
               Resend verification email
             </Text>
             <Link to='/auth/login'>
@@ -91,7 +92,7 @@ const VerifyAccount: React.FC = () => {
           </Flex>
         </Container>
       </Center>
-      <ResendVerificationModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
+      <ResendVerificationModal />
     </Box>
   );
 };

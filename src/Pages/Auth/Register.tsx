@@ -7,9 +7,10 @@ import { useRegister } from '../../Hooks/Auth/useRegister';
 import { useToastNotifications } from '../../Components/UI/ToastMessage';
 import LoadingOverlay from '../../Components/UI/LoadingOverlay';
 import ResendVerificationModal from '../../Components/Auth/ResendVerificationModal';
+import { useResendVerificationModalStore } from '../../Store/Auth/useResendVerificationModalStore';
 
 const Register: React.FC = () => {
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const { openModal } = useResendVerificationModalStore();
   const { successToast, errorToast } = useToastNotifications();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { mutate: registerUser, isLoading, isSuccess } = useRegister();
@@ -53,12 +54,12 @@ const Register: React.FC = () => {
                 Go to Login
               </Button>
             </Link>
-            <Text onClick={() => setModalOpen(true)} cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+            <Text onClick={openModal} cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
               Resend verification email
             </Text>
           </VStack>
         </Center>
-        <ResendVerificationModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
+        <ResendVerificationModal />
       </Box>
     );
   }

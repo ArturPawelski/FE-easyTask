@@ -11,11 +11,6 @@ interface SignUpInterface {
   confirmPassword: string;
 }
 
-interface ResendVerificationModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
 interface VerifyDataInterface {
   code: string;
   token: string;

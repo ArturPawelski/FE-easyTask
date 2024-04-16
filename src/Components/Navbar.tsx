@@ -1,7 +1,7 @@
 import { Box, Button, Container, Flex, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { CiSettings, CiLogout, CiUser } from 'react-icons/ci';
-import { useUserStore } from '../Store/useUserStore';
+import { useUserStore } from '../Store/Auth/useUserStore';
 import { useLogout } from '../Hooks/Auth/useLogout';
 import { useCheckSession } from '../Hooks/Auth/useCheckSession';
 import { useEffect } from 'react';
