@@ -5,8 +5,10 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLogin } from '../../Hooks/Auth/useLogin';
 import { useToastNotifications } from '../../Components/UI/ToastMessage';
+import ResendVerificationModal from '../../Components/Auth/ResendVerificationModal';
 
 const Login: React.FC = () => {
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const { successToast, errorToast } = useToastNotifications();
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -26,6 +28,9 @@ const Login: React.FC = () => {
         reset();
       },
       onError: (error: any) => {
+        if (error.response?.status === 403) {
+          setModalOpen(true);
+        }
         const errorMessage = error.response?.data?.message || 'An error occurred during login.';
         errorToast(errorMessage);
       },
@@ -99,6 +104,7 @@ const Login: React.FC = () => {
           </form>
         </Container>
       </Center>
+      <ResendVerificationModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
     </Box>
   );
 };

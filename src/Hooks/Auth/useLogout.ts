@@ -18,6 +18,9 @@ export const useLogout = () => {
       successToast(data.message);
     },
     onError: (error: any) => {
+      queryClient.clear();
+      setUser('', '', '');
+      navigate('/auth/login');
       const errorMessage = error.response?.data?.message || 'An error occurred during logout';
       errorToast(errorMessage);
     },
