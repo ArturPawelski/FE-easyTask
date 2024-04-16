@@ -1,20 +1,17 @@
 import React from 'react';
 import { Flex, Text, VStack, Input, Button, FormControl, FormErrorMessage, Container, Box, Center } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useVerifyAccount } from '../../Hooks/Auth/useVerifyAccount';
-import { useToastNotifications } from '../../Components/UI/ToastMessage';
 import ResendVerificationModal from '../../Components/Auth/ResendVerificationModal';
 import { useResendVerificationModalStore } from '../../Store/Auth/useResendVerificationModalStore';
 
 const VerifyAccount: React.FC = () => {
   const { openModal } = useResendVerificationModalStore();
-  const { successToast, errorToast } = useToastNotifications();
-  const navigate = useNavigate();
+  const { mutate: verifyAccount, isLoading } = useVerifyAccount();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const queryToken = queryParams.get('token');
-  const { mutate: verifyAccount, isLoading } = useVerifyAccount();
 
   const {
     register,
@@ -29,16 +26,7 @@ const VerifyAccount: React.FC = () => {
         token: queryToken,
       };
 
-      verifyAccount(verifyData, {
-        onSuccess: (data) => {
-          navigate('/auth/login');
-          successToast(data.message);
-        },
-        onError: (error: any) => {
-          const errorMessage = error.response?.data?.message || 'An error occurred';
-          errorToast(errorMessage);
-        },
-      });
+      verifyAccount(verifyData);
     }
   };
 

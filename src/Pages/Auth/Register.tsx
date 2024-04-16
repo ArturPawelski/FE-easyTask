@@ -4,35 +4,23 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineCheckCircle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useRegister } from '../../Hooks/Auth/useRegister';
-import { useToastNotifications } from '../../Components/UI/ToastMessage';
 import LoadingOverlay from '../../Components/UI/LoadingOverlay';
 import ResendVerificationModal from '../../Components/Auth/ResendVerificationModal';
 import { useResendVerificationModalStore } from '../../Store/Auth/useResendVerificationModalStore';
 
 const Register: React.FC = () => {
   const { openModal } = useResendVerificationModalStore();
-  const { successToast, errorToast } = useToastNotifications();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { mutate: registerUser, isLoading, isSuccess } = useRegister();
   const {
     register,
     handleSubmit,
     watch,
-    reset,
     formState: { errors },
   } = useForm<SignUpInterface>();
 
   const onSubmit: SubmitHandler<SignUpInterface> = (userData) => {
-    registerUser(userData, {
-      onSuccess: (data) => {
-        successToast(data.message);
-        reset();
-      },
-      onError: (error: any) => {
-        const errorMessage = error.response?.data?.message || 'An error occurred during registration.';
-        errorToast(errorMessage);
-      },
-    });
+    registerUser(userData);
   };
 
   if (isSuccess) {

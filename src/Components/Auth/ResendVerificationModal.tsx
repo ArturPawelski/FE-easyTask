@@ -2,12 +2,10 @@ import React from 'react';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, Input, FormErrorMessage, Text, Box } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useResendVerification } from '../../Hooks/Auth/useResendVerification';
-import { useToastNotifications } from '../UI/ToastMessage';
 import { useResendVerificationModalStore } from '../../Store/Auth/useResendVerificationModalStore';
 
 const ResendVerificationModal: React.FC = () => {
   const { isModalOpen, closeModal } = useResendVerificationModalStore();
-  const { successToast, errorToast } = useToastNotifications();
   const { mutate: resendVerification, isLoading } = useResendVerification();
   const {
     register,
@@ -16,16 +14,7 @@ const ResendVerificationModal: React.FC = () => {
   } = useForm<{ email: string }>();
 
   const onSubmit: SubmitHandler<{ email: string }> = ({ email }) => {
-    resendVerification(email, {
-      onSuccess: (data) => {
-        successToast(data.message);
-        closeModal;
-      },
-      onError: (error: any) => {
-        const errorMessage = error.response?.data?.message || 'An error occurred';
-        errorToast(errorMessage);
-      },
-    });
+    resendVerification(email);
   };
 
   return (
