@@ -7,9 +7,14 @@ import NotFoundPage from '../Components/NotFoundPage';
 const GuestRoute = lazy(() => import('./GuestRoute'));
 const ProtectedRoute = lazy(() => import('./ProtectedRoute'));
 const Home = lazy(() => import('../Pages/Home/Home'));
-const Login = lazy(() => import('../Pages/Auth/Login'));
-const Register = lazy(() => import('../Pages/Auth/Register'));
-const VerifyAccount = lazy(() => import('../Pages/Auth/VerifyAccount'));
+const AuthRoutes = lazy(() => import('./AuthRoutes'));
+
+const LayoutWithNavbar: React.FC<LayoutProps> = ({ children }) => (
+  <>
+    <Navbar />
+    {children}
+  </>
+);
 
 const ProjectRoutes: React.FC = () => {
   return (
@@ -28,30 +33,7 @@ const ProjectRoutes: React.FC = () => {
           </Route>
 
           <Route element={<GuestRoute />}>
-            <Route
-              path='/auth/login'
-              element={
-                <BasicLayout>
-                  <Login />
-                </BasicLayout>
-              }
-            />
-            <Route
-              path='/auth/register'
-              element={
-                <BasicLayout>
-                  <Register />
-                </BasicLayout>
-              }
-            />
-            <Route
-              path='/auth/verify'
-              element={
-                <BasicLayout>
-                  <VerifyAccount />
-                </BasicLayout>
-              }
-            />
+            <Route path='/auth/*' element={<AuthRoutes />} />
           </Route>
 
           <Route path='*' element={<NotFoundPage />} />
@@ -61,12 +43,3 @@ const ProjectRoutes: React.FC = () => {
   );
 };
 export default ProjectRoutes;
-
-const LayoutWithNavbar: React.FC<LayoutProps> = ({ children }) => (
-  <>
-    <Navbar />
-    {children}
-  </>
-);
-
-const BasicLayout: React.FC<LayoutProps> = ({ children }) => <>{children}</>;

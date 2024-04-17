@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useVerifyAccount } from '../../Hooks/Auth/useVerifyAccount';
 import ResendVerificationModal from '../../Components/Auth/ResendVerificationModal';
 import { useResendVerificationModalStore } from '../../Store/Auth/useResendVerificationModalStore';
+import FullPageCentered from '../../Components/Auth/FullPageCentered';
 
 const VerifyAccount: React.FC = () => {
   const { openModal } = useResendVerificationModalStore();
@@ -31,57 +32,55 @@ const VerifyAccount: React.FC = () => {
   };
 
   return (
-    <Box w='100%' h='100vh' p={4} color='black' bgGradient='linear(to-br, black, purple.800)'>
-      <Center h='100%'>
-        <Container bg='white' p={4} rounded={20}>
-          <Text textAlign='center' fontSize='xl' fontWeight='bold'>
-            Enter your verification code
-          </Text>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl mt={4} isInvalid={!!errors.userCode}>
-              <VStack>
-                <Input
-                  id='userCode'
-                  placeholder='Enter your code'
-                  {...register('userCode', {
-                    required: 'The code is required',
-                    minLength: { value: 6, message: 'Code must be 6 digits' },
-                    maxLength: { value: 6, message: 'Code must be 6 digits' },
-                    pattern: { value: /^[0-9]{6}$/, message: 'Code must be numeric and 6 digits' },
-                  })}
-                  size='lg'
-                  width='auto'
-                  maxWidth='160px'
-                  mx='auto'
-                  disabled={isLoading}
-                  inputMode='numeric'
-                  pattern='[0-9]*'
-                />
+    <FullPageCentered>
+      <Container bg='white' p={4} rounded={20}>
+        <Text textAlign='center' fontSize='xl' fontWeight='bold'>
+          Enter your verification code
+        </Text>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormControl mt={4} isInvalid={!!errors.userCode}>
+            <VStack>
+              <Input
+                id='userCode'
+                placeholder='Enter your code'
+                {...register('userCode', {
+                  required: 'The code is required',
+                  minLength: { value: 6, message: 'Code must be 6 digits' },
+                  maxLength: { value: 6, message: 'Code must be 6 digits' },
+                  pattern: { value: /^[0-9]{6}$/, message: 'Code must be numeric and 6 digits' },
+                })}
+                size='lg'
+                width='auto'
+                maxWidth='160px'
+                mx='auto'
+                disabled={isLoading}
+                inputMode='numeric'
+                pattern='[0-9]*'
+              />
 
-                <FormErrorMessage>{errors.userCode && errors.userCode.message}</FormErrorMessage>
-              </VStack>
-            </FormControl>
+              <FormErrorMessage>{errors.userCode && errors.userCode.message}</FormErrorMessage>
+            </VStack>
+          </FormControl>
 
-            <Flex mt={4} justifyContent='center'>
-              <Button w='160px' isDisabled={isLoading} isLoading={isLoading} colorScheme='purple' type='submit' variant='solid'>
-                Verify
-              </Button>
-            </Flex>
-          </form>
-          <Flex mt={4} justifyContent='space-between'>
-            <Text onClick={openModal} cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
-              Resend verification email
-            </Text>
-            <Link to='/auth/login'>
-              <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
-                Sign In
-              </Text>
-            </Link>
+          <Flex mt={4} justifyContent='center'>
+            <Button w='160px' isDisabled={isLoading} isLoading={isLoading} colorScheme='purple' type='submit' variant='solid'>
+              Verify
+            </Button>
           </Flex>
-        </Container>
-      </Center>
-      <ResendVerificationModal />
-    </Box>
+        </form>
+        <Flex mt={4} justifyContent='space-between'>
+          <Text onClick={openModal} cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+            Resend verification email
+          </Text>
+          <Link to='/auth/login'>
+            <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+              Sign In
+            </Text>
+          </Link>
+        </Flex>
+        <ResendVerificationModal />
+      </Container>
+    </FullPageCentered>
   );
 };
 
