@@ -16,6 +16,13 @@ interface VerifyDataInterface {
   token: string;
 }
 
+interface ResetPasswordInterface {
+  verificationCode: string;
+  newPassword: string;
+  confirmPassword: string;
+  token: string;
+}
+
 interface User {
   name: string;
   email: string;

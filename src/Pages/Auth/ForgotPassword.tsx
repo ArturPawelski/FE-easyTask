@@ -1,10 +1,12 @@
 import React from 'react';
-import { Flex, Container, Text, Heading, VStack, Input, Button, FormLabel, FormControl, FormErrorMessage, InputGroup, InputRightElement, Box, Center } from '@chakra-ui/react';
+import { Flex, Container, Text, Heading, Input, Button, FormControl, FormErrorMessage } from '@chakra-ui/react';
 import FullPageCentered from '../../Components/Auth/FullPageCentered';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useSendResetPasswordEmail } from '../../Hooks/Auth/useSendResetPasswordEmail';
 
 const ForgotPassword: React.FC = () => {
+  const { mutate: sendResetPasswordEmail, isLoading } = useSendResetPasswordEmail();
   const {
     register,
     handleSubmit,
@@ -12,7 +14,7 @@ const ForgotPassword: React.FC = () => {
   } = useForm<{ email: string }>();
 
   const onSubmit: SubmitHandler<{ email: string }> = ({ email }) => {
-    console.log(email);
+    sendResetPasswordEmail(email);
   };
 
   return (
@@ -28,7 +30,7 @@ const ForgotPassword: React.FC = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl isInvalid={!!errors.email}>
             <Input
-              disabled={false}
+              disabled={isLoading}
               placeholder='Enter your email'
               id='email'
               {...register('email', {
@@ -43,7 +45,7 @@ const ForgotPassword: React.FC = () => {
           </FormControl>
 
           <Flex mt={4} justifyContent='center'>
-            <Button isDisabled={true} isLoading={true} w='160px' colorScheme='purple' type='submit' variant='solid'>
+            <Button isDisabled={isLoading} isLoading={isLoading} w='160px' colorScheme='purple' type='submit' variant='solid'>
               Send Reset Link
             </Button>
           </Flex>

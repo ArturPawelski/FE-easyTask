@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, VStack, Input, Button, FormControl, FormErrorMessage, Container, Box, Center } from '@chakra-ui/react';
+import { Flex, Text, VStack, Input, Button, FormControl, FormErrorMessage, Container } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useLocation } from 'react-router-dom';
 import { useVerifyAccount } from '../../Hooks/Auth/useVerifyAccount';
@@ -57,7 +57,6 @@ const VerifyAccount: React.FC = () => {
                 inputMode='numeric'
                 pattern='[0-9]*'
               />
-
               <FormErrorMessage>{errors.userCode && errors.userCode.message}</FormErrorMessage>
             </VStack>
           </FormControl>

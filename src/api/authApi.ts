@@ -55,4 +55,26 @@ export const AuthApi = {
       throw error;
     }
   },
+
+  sendResetPasswordEmail: async (email: string): Promise<ApiResponse> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/reset-password`, { email });
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+
+  resetPassword: async (resetPasswordData: ResetPasswordInterface): Promise<ApiResponse> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/send-new-password?token=${resetPasswordData.token}`, {
+        verificationCode: resetPasswordData.verificationCode,
+        newPassword: resetPasswordData.newPassword,
+        confirmPassword: resetPasswordData.confirmPassword,
+      });
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
 };
