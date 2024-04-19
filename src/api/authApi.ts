@@ -67,7 +67,7 @@ export const AuthApi = {
 
   resetPassword: async (resetPasswordData: ResetPasswordInterface): Promise<ApiResponse> => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/send-new-password?token=${resetPasswordData.token}`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/set-new-password?token=${resetPasswordData.token}`, {
         verificationCode: resetPasswordData.verificationCode,
         newPassword: resetPasswordData.newPassword,
         confirmPassword: resetPasswordData.confirmPassword,
