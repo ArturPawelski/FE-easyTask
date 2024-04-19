@@ -2,40 +2,29 @@ import { Flex, Container, Text, Heading, VStack, Input, Button, FormLabel, FormC
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useLogin } from '../../Hooks/Auth/useLogin';
-import { useToastNotifications } from '../../Components/UI/ToastMessage';
+
+import ResendVerificationModal from '../../Components/Auth/ResendVerificationModal';
+import FullPageCentered from '../../Components/Auth/FullPageCentered';
+import LoadingOverlay from '../../Components/UI/LoadingOverlay';
 
 const Login: React.FC = () => {
-  const navigate = useNavigate();
-  const { successToast, errorToast } = useToastNotifications();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const { mutate: loginUser, isLoading, isSuccess, isError } = useLogin();
+  const { mutate: login, isLoading } = useLogin();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<SignInInterface>();
 
   const onSubmit: SubmitHandler<SignInInterface> = (loginData) => {
-    loginUser(loginData, {
-      onSuccess: (data) => {
-        successToast(data.message);
-        navigate('/');
-        reset();
-      },
-      onError: (error: any) => {
-        const errorMessage = error.response?.data?.message || 'An error occurred during login.';
-        errorToast(errorMessage);
-      },
-    });
+    login(loginData);
   };
 
   return (
-    <Box w='100%' h='100vh' p={4} color='black' bgGradient='linear(to-br, black, purple.800)'>
-      <Center h='100%'>
+    <LoadingOverlay isLoading={isLoading}>
+      <FullPageCentered>
         <Container bg='white' p={4} rounded={20}>
           <Heading textAlign='center' bgGradient='linear(to-l, #7928CA, #FF0080)' bgClip='text'>
             EasyTask
@@ -71,6 +60,7 @@ const Login: React.FC = () => {
               </FormControl>
 
               <Button
+                isLoading={isLoading}
                 type='submit'
                 colorScheme='blue'
                 px={10}
@@ -86,9 +76,11 @@ const Login: React.FC = () => {
               </Button>
 
               <Flex justifyContent='space-between' w={['100%', '90%', '80%']}>
-                <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
-                  Forgot Password?
-                </Text>
+                <Link to='/auth/forgot-password'>
+                  <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+                    Forgot Password?
+                  </Text>
+                </Link>
                 <Link to='/auth/register'>
                   <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
                     Sign Up
@@ -97,9 +89,10 @@ const Login: React.FC = () => {
               </Flex>
             </VStack>
           </form>
+          <ResendVerificationModal />
         </Container>
-      </Center>
-    </Box>
+      </FullPageCentered>
+    </LoadingOverlay>
   );
 };
 

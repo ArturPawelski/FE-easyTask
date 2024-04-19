@@ -1,16 +1,16 @@
 import { useMutation } from 'react-query';
 import { AuthApi } from '../../API/authApi';
 import { useToastNotifications } from '../../Components/UI/ToastMessage';
-import { useResendVerificationModalStore } from '../../Store/Auth/useResendVerificationModalStore';
+import { useNavigate } from 'react-router-dom';
 
-export const useResendVerification = () => {
-  const { closeModal } = useResendVerificationModalStore();
+export const useResetPassword = () => {
+  const navigate = useNavigate();
   const { successToast, errorToast } = useToastNotifications();
 
-  return useMutation((email: string) => AuthApi.resendVerification(email), {
+  return useMutation((resetPasswordData: ResetPasswordInterface) => AuthApi.resetPassword(resetPasswordData), {
     onSuccess: (data) => {
+      navigate('/auth/login');
       successToast(data.message);
-      closeModal();
     },
     onError: (error: any) => {
       const errorMessage = error.response?.data?.message || 'An error occurred';
