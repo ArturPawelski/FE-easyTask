@@ -1,30 +1,19 @@
-# React + TypeScript + Vite
+# Frontend EasyTask
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Description 📝
 
-Currently, two official plugins are available:
+The Frontend EasyTask repository holds the frontend segment of the EasyTask application, which is being developed as a Kanban board to facilitate task management. This part of the project handles the user interface and experience.The project is currently under construction.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack 🖥️
 
-## Expanding the ESLint configuration
+- **React with Vite**: Enhances development efficiency with Vite's fast reloading and optimized production builds.
+- **TypeScript**: Enhances code reliability and maintainability with static typing.
+- **Chakra UI**: Provides a modular and accessible component library for designing intuitive interfaces.
+- **React Hook Form**: Manages form state and validation with minimal re-renders for performance.
+- **React Query**: Handles fetching, caching, and updating asynchronous data efficiently.
+- **Axios**: Facilitates making HTTP requests in a simple and clean manner.
+- **Zustand**: Offers simple and scalable state management without traditional Redux boilerplate.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Backend
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+https://github.com/ArturPawelski/BE-easyTask

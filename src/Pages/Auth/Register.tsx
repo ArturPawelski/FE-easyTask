@@ -1,13 +1,18 @@
-import { Flex, Text, Heading, VStack, Input, Button, FormLabel, FormControl, FormErrorMessage, InputGroup, InputRightElement, Container, Box, Center } from '@chakra-ui/react';
+import { Flex, Text, Heading, VStack, Input, Button, FormLabel, FormControl, FormErrorMessage, InputGroup, InputRightElement, Container, HStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-
+import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineCheckCircle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { useRegister } from '../../Hooks/Auth/useRegister';
+import LoadingOverlay from '../../Components/UI/LoadingOverlay';
+import ResendVerificationModal from '../../Components/Auth/ResendVerificationModal';
+import { useResendVerificationModalStore } from '../../Store/Auth/useResendVerificationModalStore';
+import FullPageCentered from '../../Components/Auth/FullPageCentered';
 
 const Register: React.FC = () => {
+  const { openModal } = useResendVerificationModalStore();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
+  const { mutate: registerUser, isLoading, isSuccess } = useRegister();
   const {
     register,
     handleSubmit,
@@ -15,13 +20,40 @@ const Register: React.FC = () => {
     formState: { errors },
   } = useForm<SignUpInterface>();
 
-  const onSubmit: SubmitHandler<SignUpInterface> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<SignUpInterface> = (userData) => {
+    registerUser(userData);
   };
 
+  if (isSuccess) {
+    return (
+      <FullPageCentered>
+        <VStack spacing={5} p={5} bg='white' borderRadius='lg' boxShadow='lg' w={['90%', '70%', '60%', '30%']}>
+          <HStack spacing={2} justify='center'>
+            <Heading textAlign='center' color='purple.800'>
+              Registration Successful!
+            </Heading>
+            <AiOutlineCheckCircle size='50px' color='green' />
+          </HStack>
+          <Text fontSize='md' textAlign='center'>
+            We've sent an email to the address you provided. Please check your inbox and click on the link to verify your account.
+          </Text>
+          <Link to='/auth/login'>
+            <Button colorScheme='purple' variant='solid'>
+              Go to Login
+            </Button>
+          </Link>
+          <Text onClick={openModal} cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+            Resend verification email
+          </Text>
+          <ResendVerificationModal />
+        </VStack>
+      </FullPageCentered>
+    );
+  }
+
   return (
-    <Box w='100%' h='100vh' p={4} color='black' bgGradient='linear(to-br, black, purple.800)'>
-      <Center h='100%'>
+    <LoadingOverlay isLoading={isLoading}>
+      <FullPageCentered>
         <Container bg='white' p={4} rounded={20}>
           <Heading textAlign='center' bgGradient='linear(to-l, #7928CA, #FF0080)' bgClip='text'>
             EasyTask
@@ -95,6 +127,8 @@ const Register: React.FC = () => {
               </FormControl>
 
               <Button
+                isDisabled={isLoading}
+                isLoading={isLoading}
                 type='submit'
                 colorScheme='blue'
                 px={10}
@@ -106,13 +140,15 @@ const Register: React.FC = () => {
                   transitionTimingFunction: 'ease-in-out',
                 }}
               >
-                Sign In
+                Sign Up
               </Button>
 
               <Flex justifyContent='space-between' w={['100%', '90%', '80%']}>
-                <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
-                  Forgot Password?
-                </Text>
+                <Link to='/auth/forgot-password'>
+                  <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
+                    Forgot Password?
+                  </Text>
+                </Link>
                 <Link to='/auth/login'>
                   <Text cursor='pointer' color='blue.500' _hover={{ textDecoration: 'underline' }}>
                     Sign In
@@ -122,8 +158,8 @@ const Register: React.FC = () => {
             </VStack>
           </form>
         </Container>
-      </Center>
-    </Box>
+      </FullPageCentered>
+    </LoadingOverlay>
   );
 };
 
