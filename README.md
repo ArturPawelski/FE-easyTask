@@ -6,13 +6,13 @@ The Frontend EasyTask repository holds the frontend segment of the EasyTask appl
 
 ## Tech Stack 🖥️
 
-- **React with Vite**
-- **TypeScript**
-- **Chakra UI**
-- **React Hook Form**
-- **React Query**
-- **Axios**
-- **Zustand**
+- **React with Vite**: Enhances development efficiency with Vite's fast reloading and optimized production builds.
+- **TypeScript**: Enhances code reliability and maintainability with static typing.
+- **Chakra UI**: Provides a modular and accessible component library for designing intuitive interfaces.
+- **React Hook Form**: Manages form state and validation with minimal re-renders for performance.
+- **React Query**: Handles fetching, caching, and updating asynchronous data efficiently.
+- **Axios**: Facilitates making HTTP requests in a simple and clean manner.
+- **Zustand**: Offers simple and scalable state management without traditional Redux boilerplate.
 
 ## Backend
 
