@@ -13,6 +13,8 @@ The Frontend EasyTask repository holds the frontend segment of the EasyTask appl
 - **React Query**: Handles fetching, caching, and updating asynchronous data efficiently.
 - **Axios**: Facilitates making HTTP requests in a simple and clean manner.
 - **Zustand**: Offers simple and scalable state management without traditional Redux boilerplate.
+- **Vite Test**: A testing solution tailored for Vite applications, offering swift and dependable unit testing capabilities.
+- **React Testing Library**: A dedicated testing library crafted for React applications, prioritizing the testing of user interactions to guarantee accurate functionality and accessibility.
 
 ## Backend
 
