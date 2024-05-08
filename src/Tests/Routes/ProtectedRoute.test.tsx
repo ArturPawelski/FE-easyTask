@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import { Route, Routes, MemoryRouter } from 'react-router-dom';
 import ProtectedRoute from '../../Routes/ProtectedRoute';
 import * as AuthHook from '../../Hooks/Auth/useCheckSession';
